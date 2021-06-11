@@ -12,13 +12,21 @@ Data Pre-processing
 (Standard Steps taken from here - Link)
 
 Lower-case all characters
+
 Remove twitter handles
+
 Remove urls
+
 Replace unidecode characters
+
 Only keep characters
+
 Keep words with length>1 only
+
 Replace words like 'whatisthis' to ' what is this'
+
 Remove repeated spaces
+
 Approach
 
 Take a bert-base-uncased pre-trained transformer model to create embeddings and finetune it for the Sequence Classification Task.

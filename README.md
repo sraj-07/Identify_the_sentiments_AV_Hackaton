@@ -38,4 +38,7 @@ Got a public LB of **0.91xx** using this approach
 Take a roberta-base pre-trained transformer model to create embeddings and finetune it for the Sequence Classification Task.
 Got a public LB of **0.909x** using this approach
 
-Esembling the results for both the model I achieved **0.91xx** on the Public Leaderboard.
+Esembling the results for both the model I achieved **0.91xx** on the Public Leaderboard which ranked 19 on PB.
+
+Take a cardiffnlp/twitter-roberta-base pre-trained transformer model to create embeddings and finetune it for the Sequence Classification Task.
+Got a public LB of **0.916x** using this approach which ranked 16 on PB with one single model.

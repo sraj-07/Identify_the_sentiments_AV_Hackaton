@@ -1,5 +1,5 @@
 from transformers import BertForSequenceClassification, RobertaForSequenceClassification, AdamW, BertConfig
-from transformers import BertTokenizer, RobertaTokenizer
+from transformers import BertTokenizer, RobertaTokenizer, AutoModelForSequenceClassification
 import argparse
 from transformers import get_linear_schedule_with_warmup
 import numpy as np
@@ -199,7 +199,7 @@ def main():
 	
 	parser.add_argument("--split_ratio", default=0.8, type=float)
 
-	parser.add_argument("--batch_size", default=128, type=int,
+	parser.add_argument("--batch_size", default=32, type=int,
                         help="Batch size for training.")
 	parser.add_argument("--lr", default=3e-5, type=float,
                         help="learning rate for training.")
@@ -243,6 +243,14 @@ def main():
 				    output_attentions = False, # Whether the model returns attentions weights.
 				    output_hidden_states = False, # Whether the model returns all hidden-states.
 				    )
+	else:
+		model = AutoModelForSequenceClassification.from_pretrained(
+				    args.model_name_or_path, # Use the 12-layer roberta model, with an uncased vocab.
+				    num_labels = 2, # The number of output labels--2 for binary classification.
+				                    # You can increase this for multi-class tasks.   
+				    output_attentions = False, # Whether the model returns attentions weights.
+				    output_hidden_states = False, # Whether the model returns all hidden-states.
+				    )
 
 	model = model.to(device)
 
@@ -274,6 +282,14 @@ def main():
 	elif args.model_name_or_path == "roberta-base":
 		model = RobertaForSequenceClassification.from_pretrained(
 				    args.model_name_or_path, # Use the 12-layer BERT model, with an uncased vocab.
+				    num_labels = 2, # The number of output labels--2 for binary classification.
+				                    # You can increase this for multi-class tasks.   
+				    output_attentions = False, # Whether the model returns attentions weights.
+				    output_hidden_states = False, # Whether the model returns all hidden-states.
+				    )
+	else:
+		model = AutoModelForSequenceClassification.from_pretrained(
+				    args.model_name_or_path, # Use the 12-layer roberta model, with an uncased vocab.
 				    num_labels = 2, # The number of output labels--2 for binary classification.
 				                    # You can increase this for multi-class tasks.   
 				    output_attentions = False, # Whether the model returns attentions weights.

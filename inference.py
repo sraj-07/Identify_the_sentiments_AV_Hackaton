@@ -2,7 +2,7 @@ from dataloader import Data_Loader
 import torch
 import argparse
 import pandas as pd
-from transformers import BertForSequenceClassification, RobertaForSequenceClassification
+from transformers import BertForSequenceClassification, RobertaForSequenceClassification, AutoModelForSequenceClassification
 import numpy as np
 import torch.nn.functional as F
 
@@ -103,6 +103,14 @@ def main():
 				    )
 	elif args.model_name_or_path == "roberta-base":
 		model = RobertaForSequenceClassification.from_pretrained(
+				    args.model_name_or_path, # Use the 12-layer BERT model, with an uncased vocab.
+				    num_labels = 2, # The number of output labels--2 for binary classification.
+				                    # You can increase this for multi-class tasks.   
+				    output_attentions = False, # Whether the model returns attentions weights.
+				    output_hidden_states = False, # Whether the model returns all hidden-states.
+				    )
+	else:
+		model = AutoModelForSequenceClassification.from_pretrained(
 				    args.model_name_or_path, # Use the 12-layer BERT model, with an uncased vocab.
 				    num_labels = 2, # The number of output labels--2 for binary classification.
 				                    # You can increase this for multi-class tasks.   

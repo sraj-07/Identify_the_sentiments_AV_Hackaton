@@ -1,5 +1,5 @@
 import pandas as pd
-from transformers import BertTokenizer, RobertaTokenizer
+from transformers import BertTokenizer, RobertaTokenizer, AutoTokenizer
 from torch.utils.data import TensorDataset, random_split
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 import torch
@@ -10,7 +10,7 @@ import wordninja
 
 class Data_Loader():
 
-	def __init__(self, data_dir, file_path, model_name, split_ratio, batch_size = 32, process_type = "training"):
+	def __init__(self, data_dir, file_path, model_name, split_ratio, batch_size = 16, process_type = "training"):
 
 
 		self.process_type = process_type
@@ -20,6 +20,9 @@ class Data_Loader():
 			self.tokenizer = BertTokenizer.from_pretrained(model_name, do_lower_case = True)
 		elif model_name == "roberta-base":
 			self.tokenizer = RobertaTokenizer.from_pretrained(model_name, do_lower_case = True)
+		else:
+			self.tokenizer = AutoTokenizer.from_pretrained(model_name, do_lower_case = True)
+
 		self.split_ratio = split_ratio
 		self.batch_size = batch_size
 
